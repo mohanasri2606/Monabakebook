@@ -1,0 +1,65 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8">
+      <h1 class="mb-4  text-title mt-4">
+        {{ post.title }}
+        {% if post.category %}
+          <small style="font-size:18px">({{ post.category.name }})</small>
+        {% endif %}
+      </h1>
+      <p class="text-muted">Posted on {{ post.created_at|date:"F j, Y" }}</p>
+
+      {% if post.img %}
+        <div class="image-container">
+          <img src="{{ post.img.url }}" class=" detail-img" alt="{{ post.title }}" style="width: 400px; height: 250px; display: block;">
+        </div>
+      {% endif %}
+
+      <h4>About</h4>
+      <p>{{ post.about }}</p>
+
+      <h4>Ingredients</h4>
+      <ul>
+        {% for ingredient in post.ingredients.splitlines %}
+          <li>{{ ingredient }}</li>
+        {% endfor %}
+      </ul>
+
+      <h4>Recipe</h4>
+      <ol>
+        {% for step in post.recipe.splitlines %}
+          <li>{{ step }}</li>
+        {% endfor %}
+      </ol>
+
+      <h4>Tips</h4>
+      <p>{{ post.tips }}</p>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title">Related Posts</h5>
+          {% if related_posts %}
+            <ul class="list-unstyled">
+              {% for related_post in related_posts %}
+                <li>
+                  <a href="{% url 'blog:detail' slug=related_post.slug %}">{{ related_post.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No related posts available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

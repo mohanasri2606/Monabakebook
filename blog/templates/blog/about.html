@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+
+<div class="container text-center py-2 py-md-4"> <!-- Reduced padding -->
+
+    <!-- Title & Intro -->
+    <h1 class="mt-2 mt-md-3">About Mona's BakeBook</h1> <!-- Reduced margin -->
+    <p class="lead mx-auto px-2 px-md-3 fs-6 fs-md-5 fs-lg-4" style="max-width: 600px;">
+        Discover the magic of baking with Mona's BakeBook, your ultimate guide to delicious homemade recipes.
+    </p>
+
+    <!-- Baking Banner -->
+    <img src="{% static 'blog/images/baking-banner.jpg' %}" 
+         class="baking-banner img-fluid mx-auto d-block mt-0" 
+         style="max-width: 90%; height: auto;" 
+         alt="Baking banner">
+
+    <!-- About Content -->
+    <div class="about-content p-3 p-md-4 bg-light shadow rounded mt-3 mt-md-4 mx-auto" 
+         style="max-width: 800px;">
+        {{ about_content }}
+    </div>
+
+    <!-- Back to Home Button -->
+    <a href="{% url 'blog:index' %}" class="btn btn-primary mt-3 mt-md-4">Back to Recipes</a>
+</div>
+{% endblock %}
