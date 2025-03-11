@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.mail import EmailMessage
 from django.http import HttpResponse, Http404
 from django.urls import reverse
 from .models import Category, Post, AboutUs
@@ -42,6 +43,21 @@ def detail(request, slug):
     # logger.debug(f'post variable is {post}')=
     return render(request,'blog/detail.html', {'post': post, 'related_posts':related_posts})
 
+def about(request):
+    about_content = AboutUs.objects.first()
+    if about_content is None or not about_content.content:
+        about_content = "Default content goes here."  # Replace with your desired default string
+    else:
+        about_content = about_content.content
+        
+    return render(request,'blog/about.html',{'about_content':about_content})
+
+
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.conf import settings
+import logging
+from .forms import ContactForm  # Assuming you have a ContactForm
 
 def contact(request):
     if request.method == 'POST':
@@ -52,22 +68,40 @@ def contact(request):
 
         logger = logging.getLogger("TESTING")
         if form.is_valid():
-            # Corrected logging line
+            # Log the form data
             logger.debug(f'POST Data is {form.cleaned_data["name"]} {form.cleaned_data["email"]} {form.cleaned_data["message"]}')
-            #send email or save in database
-            success_message = 'Your Email has been sent!'
-            return render(request,'blog/contact.html', {'form':form,'success_message':success_message})
+            
+            # Send an email
+            subject = f"New Contact Form Submission from {form.cleaned_data['name']}"
+            message = f"""
+            Name: {form.cleaned_data['name']}
+            Email: {form.cleaned_data['email']}
+            Message: {form.cleaned_data['message']}
+            """
+            sender_email = form.cleaned_data['email']
+            recipient_email = settings.DEFAULT_FROM_EMAIL  # Use your email or a configured email in settings.py
+
+            try:
+                send_mail(
+                    subject=subject,
+                    message=message,
+                    from_email=sender_email,
+                    recipient_list=[recipient_email],
+                    fail_silently=False,
+                )
+                logger.debug("Email sent successfully")
+            except Exception as e:
+                logger.error(f"Failed to send email: {e}")
+
+            # Redirect to the success page
+            return redirect('blog:success')  # Use the URL name for the success page
         else:
             logger.debug('Form validation failure')
-        return render(request,'blog/contact.html', {'form':form, 'name': name, 'email':email, 'message': message})
-    return render(request,'blog/contact.html')
+            return render(request, 'blog/contact.html', {'form': form, 'name': name, 'email': email, 'message': message})
+    
+    # For GET requests, render the contact form
+    return render(request, 'blog/contact.html')
 
-
-def about(request):
-    about_content = AboutUs.objects.first()
-    if about_content is None or not about_content.content:
-        about_content = "Default content goes here."  # Replace with your desired default string
-    else:
-        about_content = about_content.content
-        
-    return render(request,'blog/about.html',{'about_content':about_content})
+def success(request):
+    # Render the success.html template
+    return render(request, 'blog/success.html')
