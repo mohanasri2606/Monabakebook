@@ -11,6 +11,7 @@ python = ">=3.11,<3.14"
 django = ">=5.1.7,<6.0.0"
 waitress = "^3.0.2"
 mysqlclient = "^2.2.7"
+gunicorn = "^23.0.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
