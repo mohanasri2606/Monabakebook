@@ -27,16 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(s=ls4n$42roaeo2td7$guh1z)7z!1dfz6iylivv&)z9grthfk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '0.0.0.0',
-    '192.168.31.219',  
-    'monabakebook.netlify.app',
-]
-
+ALLOWED_HOSTS = ['monabakebook.netlify.app', '127.0.0.1', 'localhost']
 
 # Application definition
 
