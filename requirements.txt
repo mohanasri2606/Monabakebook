@@ -24,7 +24,6 @@ joblib==1.4.2
 kiwisolver==1.4.8
 MarkupSafe==3.0.2
 matplotlib==3.10.0
-mysql-connector-python==9.2.0
 mysqlclient==2.2.7
 nltk==3.9.1
 numpy==2.2.3
