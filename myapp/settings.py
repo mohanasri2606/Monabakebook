@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '0.0.0.0',
-    '192.168.31.219'
+    '192.168.31.219',  
     'monabakebook.netlify.app',
 ]
 
