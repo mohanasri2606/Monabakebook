@@ -29,7 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'monabakebook.onrender.com',
+    'mohana2606.pythonanywhere.com',
+
 ]
 
 
@@ -132,6 +133,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "blog/static/blog/"
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
