@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,16 +82,9 @@ WSGI_APPLICATION = 'myapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',
-        'USER': 'root',
-        'PASSWORD': 'Moya@1426',
-        'HOST': 'localhost',
-        'PORT': '3306'
-    }
 
+DATABASES = {
+    'default': dj_database_url.config(default='postgresql://postgres:PnkpsYuMyOgwyjrAzKOQJHLldhuIlcsf@nozomi.proxy.rlwy.net:25219/railway')
 }
 
 
@@ -132,7 +126,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "blog/static/blog/"
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles") 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
