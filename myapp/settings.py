@@ -88,9 +88,8 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'Moya@1426',
         'HOST': 'localhost',
-        'PORT': '5432'
+        'PORT': '5432',
     }
-
 }
 
 
@@ -132,8 +131,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "blog/static/blog/"
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles") 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
