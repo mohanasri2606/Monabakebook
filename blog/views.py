@@ -46,11 +46,15 @@ def detail(request, slug):
 def about(request):
     about_content = AboutUs.objects.first()
     if about_content is None or not about_content.content:
-        about_content = "Default content goes here."  # Replace with your desired default string
+        about_content = (
+            "Welcome to Mona's BakeBook! 🍰✨ "
+            "Your go-to place for delightful recipes, baking tips, and sweet inspirations. "
+            "Join us on this delicious journey and bake something magical today! 🎂💕"
+        )  # Updated default content
     else:
         about_content = about_content.content
         
-    return render(request,'blog/about.html',{'about_content':about_content})
+    return render(request, 'blog/about.html', {'about_content': about_content})
 
 
 from django.core.mail import send_mail
